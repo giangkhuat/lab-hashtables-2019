@@ -150,6 +150,7 @@ public class ChainedHashTable<K, V> implements HashTable<K, V> {
 
   /**
    * Get the value for a particular key.
+   * Doesnt look for matching key
    */
   @Override
   public V get(K key) {
@@ -188,6 +189,7 @@ public class ChainedHashTable<K, V> implements HashTable<K, V> {
 
   /**
    * Set a value.
+   * Doesnt check for repeated keys
    */
   @SuppressWarnings("unchecked")
   public V set(K key, V value) {
@@ -204,6 +206,11 @@ public class ChainedHashTable<K, V> implements HashTable<K, V> {
     if (alist == null) {
       alist = new ArrayList<Pair<K, V>>();
       this.buckets[index] = alist;
+    } else {
+      int i = 0;
+      while (i < alist.size() && comparator.compare(alist.get(i), key)) {
+        
+      }
     }
     alist.add(new Pair<K, V>(key, value));
     ++this.size;
